@@ -68,6 +68,18 @@ $projects = $query -> fetchAll();
             <p class="company">Allianz Partners</p>
             <p class="exp-desc">Developed an end-to-end software solution to modernize and automate corporate data transfer processes. Implemented <b>Policy Data Transfer Project</b> using C# and .NET environments.</p>
         </div>
+    </section id= "projects">
+        <h2>"Projects"</h2>
+        <div class= "slider-container">
+            <div id="github-projects" class="project-slider">
+                <p>Projects are loading...</p>
+
+            </div>
+            <button class= "prev" onclick= "moveSlide(-1)">&#10094</button>
+            <button class= "next" onclick= "moveSlide(1)">&#10095</button>
+        </div>
+    <section>
+
     </section>
     
     <main id="projects" class="section-container">
@@ -95,6 +107,6 @@ $projects = $query -> fetchAll();
             </div>
         </div>
     </footer>
-
+<script src="assets/js/script.js"></script>
 </body>
 </html>
