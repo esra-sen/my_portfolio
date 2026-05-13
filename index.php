@@ -1,9 +1,5 @@
 <?php
 include "Includes/db.php";
-
-$query = $pdo -> prepare("SELECT * FROM `projects` ORDER BY id DESC");
-$query -> execute();
-$projects = $query -> fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +10,7 @@ $projects = $query -> fetchAll();
     <title>Esra Nur Şen | Software Engineer Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -32,27 +29,73 @@ $projects = $query -> fetchAll();
     <section class="hero" id="about">
         <div class="hero-content">
             <div class="profile-frame">
-            <img src="assets/img/profile.jpg" alt="Esra Nur Şen" class="profile-image">
-
+                <img src="assets/img/profile.jpg" alt="Esra Nur Şen" class="profile-image">
             </div>
             <div class="hero-text">
                 <h1>ESRA NUR ŞEN</h1>
                 <p class="subtitle"><i>Software Engineering Student</i></p>
                 
-                <div class="bio">
-                    <p>Haliç University | Junior Backend Developer with a focus on <b>.NET Architecture</b> and <b>Data Systems</b>. Passionate about building secure and scalable software solutions.</p>
-                </div>
+                <div class="bio-details">
+                    <div class="info-row">
+                        <div class="info-block education">
+                            <h3>EDUCATION</h3>
+                            <p>Haliç University | Software Engineering</p>
+                            <p class="date-text">2022 - 2027 (Expected)</p>
+                        </div>
 
-                <div class="technical-expertise">
-                    <h3>Technical Expertise</h3>
-                    <div class="skills-grid">
-                        <span>C# & .NET 8.0</span>
-                        <span>ASP.NET Core Web API</span>
-                        <span>MS SQL Server</span>
-                        <span>Python (Data Analysis)</span>
-                        <span>JWT Auth</span>
-                        <span>English (B2)</span>
+                        <div class="info-block languages">
+                            <h3>LANGUAGES</h3>
+                            <p>English | Professional Proficiency (B2)</p>
+                            <p>Turkish | Native</p>
+                        </div>
                     </div>
+
+                    <div class="technical-expertise">
+    <h3>TECHNICAL SKILLS</h3>
+    
+    <div class="skills-wrapper">
+        <div class="skill-category">
+            <h4>Programming Languages</h4>
+            <ul>
+                <li>C#</li>
+                <li>Python</li>
+                <li>Java</li>
+                <li>C++</li>
+                <li>SQL (T-SQL, MySQL)</li>
+                <li>JavaScript</li>
+            </ul>
+        </div>
+
+        <div class="skill-category">
+            <h4>Web Development & Frameworks</h4>
+            <ul>
+                <li>ASP.NET Core Web API</li>
+                <li>.NET 8.0</li>
+                <li>PHP</li>
+                <li>HTML5 & CSS3</li>
+                <li>RESTful API</li>
+            </ul>
+        </div>
+
+        <div class="skill-category">
+            <h4>Security & Databases</h4>
+            <ul>
+                <li>JWT (JSON Web Token) Authentication</li>
+                <li>MS SQL Server</li>
+                <li>MySQL</li>
+            </ul>
+        </div>
+
+        <div class="skill-category">
+            <h4>Tools & Libraries</h4>
+            <ul>
+                <li>Git & GitHub</li>
+                <li>ExcelDataReader</li>
+                <li>Pandas & NumPy</li>
+            </ul>
+        </div>
+    </div>
+</div>
                 </div>
             </div>
         </div>
@@ -66,47 +109,31 @@ $projects = $query -> fetchAll();
                 <span class="date">June 2025 – July 2025</span>
             </div>
             <p class="company">Allianz Partners</p>
-            <p class="exp-desc">Developed an end-to-end software solution to modernize and automate corporate data transfer processes. Implemented <b>Policy Data Transfer Project</b> using C# and .NET environments.</p>
+            <p class="exp-desc">Developed an end-to-end software solution to modernize and automate corporate data transfer processes. Implemented the <b>Policy Data Transfer Project</b>.</p>
         </div>
-    </section id= "projects">
-        <h2>"Projects"</h2>
-        <div class= "slider-container">
+    </section>
+
+    <section id="projects" class="section-container">
+        <h2 class="section-title">Projects</h2>
+        <div class="slider-container">
             <div id="github-projects" class="project-slider">
                 <p>Projects are loading...</p>
-
             </div>
-            <button class= "prev" onclick= "moveSlide(-1)">&#10094</button>
-            <button class= "next" onclick= "moveSlide(1)">&#10095</button>
+            <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+            <button class="next" onclick="moveSlide(1)">&#10095;</button>
         </div>
-    <section>
-
     </section>
-    
-    <main id="projects" class="section-container">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="projects-grid">
-            <?php foreach($projects as $proje): ?>
-                <div class="project-card">
-                    <div class="card-content">
-                        <h3><?php echo htmlspecialchars($proje['title']); ?></h3>
-                        <p><?php echo htmlspecialchars($proje['description']); ?></p>
-                        <div class="card-footer">
-                            <span class="category"><?php echo htmlspecialchars($proje['category']); ?></span>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </main>
 
     <footer id="contact">
         <div class="section-container">
             <h2 class="section-title">Get In Touch</h2>
+            <div class="social-links">
                 <a href="https://linkedin.com/in/esra-nur-şen" target="_blank">LinkedIn</a>
                 <a href="https://github.com/esra-sen" target="_blank">GitHub</a>
             </div>
         </div>
     </footer>
-<script src="assets/js/script.js"></script>
+
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
