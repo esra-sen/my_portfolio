@@ -1,25 +1,43 @@
-const username = 'esra-sen';
+// 1. Form Doğrulama Fonksiyonu 
+function validateForm() {
+    let name = document.getElementById("name").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let message = document.getElementById("message").value.trim();
 
+    if (name === "" || email === "" || message === "") {
+        alert("Please fill in all fields!");
+        return false;
+    }
+    return true; // Her şey tamamsa true döner
+}
+
+// 2. Veritabanından Projeleri Çeken Fonksiyon 
 async function fetchProjects() {
     try {
-        const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated`);
-        const repos = await response.json();
+        // GitHub API yerine kendi PHP dosyamıza istek atıyoruz
+        const response = await fetch('Includes/get_projects.php'); 
+        const projects = await response.json();
         const container = document.getElementById('github-projects');
+        
         if(container) {
             container.innerHTML = '';
-            repos.forEach(repo => {
-                if (!repo.fork) {
-                    const card = `
-                        <div class='project-card' onclick="window.open('${repo.html_url}', '_blank')">
-                            <h3>${repo.name}</h3>
-                            <p style="margin-top: 15px; color: #555;">${repo.description ? repo.description : 'Explore this repository on GitHub.'}</p>
-                            <div class='category' style="margin-top: 20px;">${repo.language || 'Software Development'}</div>
-                        </div>`; 
-                    container.innerHTML += card;
-                }
+            if(projects.length === 0) {
+                container.innerHTML = '<p>No projects found in database.</p>';
+                return;
+            }
+            projects.forEach(project => {
+                const card = `
+                    <div class='project-card' onclick="window.open('${project.project_link}', '_blank')">
+                        <h3>${project.title}</h3>
+                        <p style="margin-top: 15px; color: #555;">${project.description}</p>
+                        <div class='category' style="margin-top: 20px;">Software Development</div>
+                    </div>`; 
+                container.innerHTML += card;
             });
         }
-    } catch (error) { console.error('Error:', error); }
+    } catch (error) { 
+        console.error('Error:', error); 
+    }
 }
 
 function moveSlide(direction) {
@@ -36,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleBtn = document.getElementById('toggle-form-btn');
     const formContainer = document.getElementById('contact-form-container');
     const contactForm = document.getElementById('contact-form');
-    const responseDiv = document.getElementById('form-response');
 
     if (toggleBtn && formContainer) {
         toggleBtn.addEventListener('click', function() {
@@ -49,10 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            console.log("Form gönderiliyor...");
+
+            //  Doğrulama burada çağrılmalı
+            if (!validateForm()) {
+                return; // Eğer boşsa fonksiyonu fetch'e geçme.
+            }
+
+            console.log("Form doğrulamadan geçti, gönderiliyor...");
 
             const formData = new FormData(this);
-            // responseDiv'in bu kapsamda tanımlı olduğundan emin oluyoruz
             const responseDiv = document.getElementById('form-response');
 
             fetch('Includes/send_message.php', {
@@ -61,34 +83,28 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             .then(res => res.text())
             .then(data => {
-                console.log("Sunucu yanıtı:", data);
                 responseDiv.style.display = "block";
-                responseDiv.style.opacity = "1"; // Kaybolduktan sonra tekrar görünmesi için
+                responseDiv.style.opacity = "1";
                 
                 if (data.trim().toLowerCase().includes("success")) {
                     responseDiv.className = "response-success";
                     responseDiv.textContent = "Your message has been sent successfully!";
-                    contactForm.reset(); // Kutuları temizle
+                    contactForm.reset(); 
                 } else {
                     responseDiv.className = "response-error";
-                    responseDiv.textContent = "Oops! Something went wrong. Please try again.";
+                    responseDiv.textContent = "Oops! Something went wrong.";
                 }
                 
-                // 5 saniye sonra yavaşça kaybolması için
                 setTimeout(() => { 
                     responseDiv.style.opacity = "0";
                     setTimeout(() => {
                         responseDiv.style.display = "none";
-                        responseDiv.style.opacity = "1";
                     }, 500);
                 }, 5000);
             })
             .catch(err => {
-                console.error("Hata oluştu:", err);
-                responseDiv.style.display = "block";
-                responseDiv.className = "response-error";
-                responseDiv.textContent = "Connection error. Please try again.";
+                console.error("Hata:", err);
             });
         });
     }
-}); // DOMContentLoaded kapanışı
+});
