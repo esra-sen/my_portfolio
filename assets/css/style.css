@@ -1,0 +1,224 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #FDFBF7;
+    font-family: 'Times New Roman', Times, serif;
+    color: #1A1A1A;
+    line-height: 1.6;
+    scroll-behavior: smooth; 
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+header {
+    background-color: #FDFBF7;
+    padding: 20px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #B8860B;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #B8860B;
+    letter-spacing: 2px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+nav ul li a {
+    font-size: 0.9rem;
+    transition: 0.3s;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #B8860B;
+    letter-spacing: 1px; /* Hafif açılma efekti */
+}
+
+
+.hero {
+    padding: 100px 15%;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    background-color: #FDFBF7;
+}
+
+.profile-image {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #B8860B;
+    padding: 8px; /* Çerçeve ile foto arasında asil bir boşluk */
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(184, 134, 11, 0.15); /* Altın tonlu hafif gölge */
+}
+
+.hero-text h1 {
+    font-size: 3.5rem;
+    color: #1A1A1A;
+    margin-bottom: 10px;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    font-size: 1.4rem;
+    color: #B8860B;
+    margin-bottom: 25px;
+}
+
+.bio {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    max-width: 600px;
+}
+
+
+.technical-expertise h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.skills-grid span {
+    background-color: #ffffff;
+    border: 1px solid #B8860B;
+    padding: 8px 18px;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    color: #1A1A1A;
+}
+
+.skills-grid span:hover {
+    background-color: #B8860B;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+.section-container {
+    padding: 80px 15%;
+}
+
+.section-title {
+    font-size: 2rem;
+    color: #B8860B;
+    text-transform: uppercase;
+    margin-bottom: 45px;
+    border-bottom: 1px solid #B8860B;
+    display: inline-block;
+    letter-spacing: 4px;
+    padding-bottom: 5px;
+}
+
+.experience-item {
+    margin-bottom: 40px;
+    border-left: 2px solid #B8860B;
+    padding-left: 25px;
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+}
+
+.company {
+    font-weight: bold;
+    color: #B8860B;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+.date {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: #fff;
+    border: 1px solid #E5E5E5;
+    padding: 30px;
+    transition: 0.4s;
+    border-bottom: 4px solid transparent; /* Gizli altın şerit */
+}
+
+.project-card:hover {
+    border-bottom: 4px solid #B8860B;
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
+}
+
+.project-card h3 {
+    margin-bottom: 15px;
+    color: #1A1A1A;
+}
+
+.category {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #B8860B;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+footer {
+    background-color: #1A1A1A;
+    color: #FDFBF7;
+    text-align: center;
+    padding: 60px 0;
+}
+
+footer .section-title {
+    border-bottom-color: #FDFBF7;
+    color: #FDFBF7;
+}
+
+.social-links {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-links a:hover {
+    color: #B8860B;
+}
