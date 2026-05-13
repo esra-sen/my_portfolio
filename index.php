@@ -27,7 +27,6 @@ include "Includes/db.php";
     </header>
 
     <section class="hero" id="about">
-        <!-- ÜST KISIM: Fotoğraf ve İsim Yan Yana -->
         <div class="hero-top">
             <div class="profile-frame">
                 <img src="assets/img/profile.jpg" alt="Esra Nur Şen" class="profile-image">
@@ -38,7 +37,6 @@ include "Includes/db.php";
             </div>
         </div>
 
-        <!-- ALT KISIM: Detaylar ve Yetenekler Aşağıda Ortalanmış -->
         <div class="bio-details">
             <div class="info-row">
                 <div class="info-block education">
@@ -118,7 +116,7 @@ include "Includes/db.php";
         <h2 class="section-title">Projects</h2>
         <div class="slider-container">
             <button class="slider-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
-            <div id="github-projects" class="project-slider">
+            <div id="db-projects" class="project-slider">
                 <p>Projects are loading...</p>
             </div>
             <button class="slider-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
@@ -143,7 +141,7 @@ include "Includes/db.php";
             <div id="contact-form-container" class="hidden-form">
                 <form id="contact-form">
                     <div class="form-group">
-                        <input type="text" name="name_surname" placeholder="Full Name" required>
+                        <input type="text" name="full_name" placeholder="Full Name" required>
                         <input type="email" name="email" placeholder="Email Address" required>
                     </div>
                     <input type="text" name="subject" placeholder="Subject" required>
