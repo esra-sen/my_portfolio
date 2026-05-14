@@ -1,5 +1,12 @@
-<?php
-include "Includes/db.php";
+<?php 
+include "Includes/db.php"; 
+
+// Verileri çekelim 
+$projects = $pdo->query("SELECT * FROM projects ORDER BY id DESC")->fetchAll();
+$education = $pdo->query("SELECT * FROM education ORDER BY id DESC")->fetchAll();
+$experience = $pdo->query("SELECT * FROM experience ORDER BY id DESC")->fetchAll();
+$skills = $pdo->query("SELECT * FROM skills ORDER BY category ASC, skill_name ASC")->fetchAll();
+$languages = $pdo->query("SELECT * FROM languages ORDER BY id DESC")->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -8,7 +15,6 @@ include "Includes/db.php";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Esra Nur Şen | Software Engineer Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -41,60 +47,48 @@ include "Includes/db.php";
             <div class="info-row">
                 <div class="info-block education">
                     <h3>EDUCATION</h3>
-                    <p>Haliç University | Software Engineering</p>
-                    <p class="date-text">2022 - 2027 (Expected)</p>
+                    <?php foreach($education as $edu): ?>
+                        <div class="edu-item">
+                            <div class="edu-main-info">
+                                <strong><?php echo htmlspecialchars($edu['institution']); ?></strong>
+                                <span class="edu-separator">|</span>
+                                <span class="edu-title-text"><?php echo htmlspecialchars($edu['title']); ?></span>
+                            </div>
+                            <p class="date-text"><?php echo htmlspecialchars($edu['date_range']); ?></p>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
 
                 <div class="info-block languages">
                     <h3>LANGUAGES</h3>
-                    <p>English | Professional Proficiency (B2)</p>
-                    <p>Turkish | Native</p>
+                    <?php foreach($languages as $lang): ?>
+                        <p><?php echo htmlspecialchars($lang['language_name']); ?> | <?php echo htmlspecialchars($lang['level']); ?></p>
+                    <?php endforeach; ?>
                 </div>
             </div>
 
             <div class="technical-expertise">
                 <h3>TECHNICAL SKILLS</h3>
                 <div class="skills-wrapper">
-                    <div class="skill-category">
-                        <h4>Programming Languages</h4>
-                        <ul>
-                            <li>C#</li>
-                            <li>Python</li>
-                            <li>Java</li>
-                            <li>C++</li>
-                            <li>SQL (T-SQL, MySQL)</li>
-                            <li>JavaScript</li>
-                        </ul>
-                    </div>
+                    <?php
+                    $groupedSkills = [];
+                    foreach ($skills as $skill) {
+                        $groupedSkills[$skill['category']][] = $skill['skill_name'];
+                    }
 
-                    <div class="skill-category">
-                        <h4>Web Development & Frameworks</h4>
-                        <ul>
-                            <li>ASP.NET Core Web API</li>
-                            <li>.NET 8.0</li>
-                            <li>PHP</li>
-                            <li>HTML5 & CSS3</li>
-                            <li>RESTful API</li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4>Security & Databases</h4>
-                        <ul>
-                            <li>JWT Authentication</li>
-                            <li>MS SQL Server</li>
-                            <li>MySQL</li>
-                        </ul>
-                    </div>
-
-                    <div class="skill-category">
-                        <h4>Tools & Libraries</h4>
-                        <ul>
-                            <li>Git & GitHub</li>
-                            <li>ExcelDataReader</li>
-                            <li>Pandas & NumPy</li>
-                        </ul>
-                    </div>
+                    foreach ($groupedSkills as $category => $items): ?>
+                        <div class="skill-category">
+                            <h4><?php echo htmlspecialchars($category); ?></h4>
+                            <ul>
+                                <?php foreach ($items as $item): ?>
+                                    <li>
+                                        <i class="fas fa-caret-right"></i>
+                                        <?php echo htmlspecialchars($item); ?>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
@@ -102,14 +96,18 @@ include "Includes/db.php";
 
     <section id="experience" class="section-container">
         <h2 class="section-title">Professional Experience</h2>
-        <div class="experience-item">
-            <div class="exp-header">
-                <h3>Software Engineering Intern</h3>
-                <span class="date">June 2025 – July 2025</span>
+        <?php foreach($experience as $exp): ?>
+            <div class="experience-item">
+                <div class="exp-header">
+                    <h3><?php echo htmlspecialchars($exp['position']); ?></h3>
+                    <span class="date"><?php echo htmlspecialchars($exp['duration'] ?? ''); ?></span>
+                </div>
+                <p class="company"><?php echo htmlspecialchars($exp['company']); ?></p>
+                <?php if(!empty($exp['description'])): ?>
+                    <p class="exp-desc"><?php echo htmlspecialchars($exp['description']); ?></p>
+                <?php endif; ?>
             </div>
-            <p class="company">Allianz Partners</p>
-            <p class="exp-desc">Developed an end-to-end software solution to modernize and automate corporate data transfer processes. Implemented the <b>Policy Data Transfer Project</b>.</p>
-        </div>
+        <?php endforeach; ?>
     </section>
 
     <section id="projects" class="section-container">
@@ -117,7 +115,18 @@ include "Includes/db.php";
         <div class="slider-container">
             <button class="slider-btn prev-btn" onclick="moveSlide(-1)">&#10094;</button>
             <div id="db-projects" class="project-slider">
-                <p>Projects are loading...</p>
+                <?php if(count($projects) > 0): ?>
+                    <?php foreach($projects as $project): ?>
+                        <div class="project-card">
+                            <h4><?php echo htmlspecialchars($project['title']); ?></h4>
+                            <?php if(!empty($project['project_link'])): ?>
+                                <a href="<?php echo htmlspecialchars($project['project_link']); ?>" target="_blank">View Project <i class="fas fa-external-link-alt"></i></a>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p>Henüz proje eklenmedi.</p>
+                <?php endif; ?>
             </div>
             <button class="slider-btn next-btn" onclick="moveSlide(1)">&#10095;</button>
         </div>
@@ -126,18 +135,11 @@ include "Includes/db.php";
     <footer id="contact">
         <div class="section-container">
             <h2 class="section-title">Get In Touch</h2>
-            
             <div class="social-links">
-                <a href="https://linkedin.com/in/esra-nur-şen" target="_blank" title="LinkedIn">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-                <a href="https://github.com/esra-sen" target="_blank" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
+                <a href="https://linkedin.com/in/esra-nur-şen" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="https://github.com/esra-sen" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
             </div>
-
             <button id="toggle-form-btn" class="form-toggle-btn">Leave a Message</button>
-
             <div id="contact-form-container" class="hidden-form">
                 <form id="contact-form">
                     <div class="form-group">
@@ -147,7 +149,7 @@ include "Includes/db.php";
                     <input type="text" name="subject" placeholder="Subject" required>
                     <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
                     <button type="submit" class="submit-btn">Send Message</button>
-                    <div id="form-response" style="margin-top: 20px; padding: 10px; border-radius: 5px; display: none; text-align: center; font-weight: bold;"></div>
+                    <div id="form-response"></div>
                 </form>
             </div>
         </div>

@@ -111,7 +111,7 @@ nav ul li a:hover {
 }
 
 /* =========================================
-   4. TEKNİK YETENEKLER & ORTAK BAŞLIK STİLİ
+   4. TEKNİK YETENEKLER & BİO
    ========================================= */
 .bio-details {
     width: 100%;
@@ -120,9 +120,15 @@ nav ul li a:hover {
 
 .info-row {
     display: flex;
-    justify-content: center;
-    gap: 120px;            
+    justify-content: center; 
+    gap: 150px;             
     margin-bottom: 60px;
+    margin-left: -5%;       
+}
+
+/* Sadece Language bölümünü çok az sağa  */
+.info-block.languages {
+    margin-left: 30px; 
 }
 
 .technical-expertise h3, 
@@ -142,16 +148,19 @@ nav ul li a:hover {
 .skills-wrapper {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 50px;
+    gap: 40px;
+    margin-top: 20px;
 }
 
 .skill-category h4 {
-    font-size: 1.3rem;    
-    color: #1A1A1A;
-    margin-bottom: 18px;
+    font-size: 1.15rem;    
+    color: #1A1A1A; 
+    margin-bottom: 15px;
     font-weight: bold;
-    border-left: 4px solid #B8860B;
+    border-left: 3px solid #B8860B;
     padding-left: 12px;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: uppercase; 
 }
 
 .skill-category ul {
@@ -160,32 +169,68 @@ nav ul li a:hover {
 }
 
 .skill-category ul li {
-    font-size: 1.15rem;    
-    color: #444;
-    margin-bottom: 12px;
-    position: relative;
-    padding-left: 20px;
+    font-size: 1.1rem;    
+    color: #444; 
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    font-family: 'Times New Roman', Times, serif;
+    text-transform: none;
 }
 
-.skill-category ul li::before {
-    content: "›";          
-    position: absolute;
-    left: 0;
+.skill-category ul li i {
     color: #B8860B;
-    font-weight: bold;
-    font-size: 1.4rem;
-    line-height: 1;
+    margin-right: 10px;
+    font-size: 0.7rem; 
 }
 
 /* =========================================
-   5. DENEYİM (EXPERIENCE)
+   EĞİTİM (DİK İŞARETLİ VE SİLİK TARİHLİ)
+   ========================================= */
+.info-block.education {
+    text-align: center;
+    width: auto; 
+}
+
+.edu-item {
+    margin-bottom: 20px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.edu-main-info {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #1A1A1A;
+}
+
+.edu-separator {
+    color: #1A1A1A;
+    margin: 0 10px;
+    font-weight: normal;
+}
+
+.edu-title-text {
+    font-style: italic;
+    color: #444;
+    font-weight: normal;
+}
+
+.date-text {
+    display: block;
+    font-size: 0.95rem;
+    color: #999 !important;
+    margin-top: 5px;
+}
+
+/* =========================================
+   5. DENEYİM 
    ========================================= */
 .section-container {
     padding: 80px 15%;
 }
 
 .experience-item {
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     border-left: 2px solid #B8860B;
     padding-left: 25px;
 }
@@ -202,11 +247,19 @@ nav ul li a:hover {
     color: #B8860B;
     font-style: italic;
     font-size: 1.2rem;
+    margin-bottom: 10px;
 }
 
 .date {
     font-size: 1rem;
     color: #777;
+}
+
+.exp-desc {
+    font-size: 1.05rem;
+    color: #555;
+    line-height: 1.7;
+    text-align: justify;
 }
 
 /* =========================================
@@ -234,7 +287,7 @@ nav ul li a:hover {
 
 .project-card {
     min-width: 100%;
-    height: 320px;
+    height: 280px;
     background-color: #fff;
     border: 1px solid rgba(184, 134, 11, 0.3);
     border-radius: 20px;
@@ -245,7 +298,12 @@ nav ul li a:hover {
     padding: 40px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.05);
     transition: all 0.4s ease;
-    cursor: pointer;
+}
+
+.project-card h4 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #1A1A1A;
 }
 
 .project-card:hover {
@@ -254,7 +312,6 @@ nav ul li a:hover {
     transform: translateY(-5px);
 }
 
-/* SLIDER OKLARI VE ALTIN SARISI HOVER */
 .slider-btn {
     position: absolute;
     top: 50%;
@@ -296,8 +353,6 @@ footer {
 footer .section-title {
     color: #FDFBF7 !important;
     border-bottom: 2px solid #FDFBF7 !important;
-    width: 100%;
-    display: block;
 }
 
 .social-links {
@@ -325,7 +380,6 @@ footer .section-title {
     padding: 12px 35px;
     margin-top: 20px;
     cursor: pointer;
-    font-family: 'Montserrat', sans-serif;
     text-transform: uppercase;
     letter-spacing: 2px;
     transition: 0.4s;
@@ -389,4 +443,13 @@ footer .section-title {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .hero-top { flex-direction: column; gap: 30px; }
+    .hero-title-group h1 { font-size: 2.5rem; }
+    .info-row { flex-direction: column; gap: 40px; align-items: center; text-align: center; margin-left: 0; }
+    .info-block.languages { margin-left: 0; } /* Mobilde sağa itmeyi iptal ettik */
+    .form-group { flex-direction: column; }
+    .skills-wrapper { grid-template-columns: 1fr; }
 }

@@ -86,9 +86,9 @@ if (isset($_GET['delete_msg'])) {
             <section class="admin-section" id="education">
                 <h2 class="section-title">EĞİTİM & SERTİFİKALAR</h2>
                 <form action="process.php" method="POST" class="add-form">
-                    <input type="text" name="institution" placeholder="Kurum/Okul" required>
-                    <input type="text" name="title" placeholder="Eğitim" required>
-                    <input type="text" name="date_range" placeholder="Tarih">
+                    <input type="text" name="institution" placeholder="Kurum/Okul (Örn: Haliç University)" required>
+                    <input type="text" name="title" placeholder="Eğitim (Örn: Software Engineering)" required>
+                    <input type="text" name="date_range" placeholder="Tarih (Örn: 2022 - 2027)">
                     <button type="submit" name="add_education" class="save-btn">EKLE</button>
                 </form>
                 <table class="project-table">
@@ -96,7 +96,7 @@ if (isset($_GET['delete_msg'])) {
                     $edu = $pdo->query("SELECT * FROM education ORDER BY id DESC")->fetchAll();
                     foreach($edu as $e) {
                         echo "<tr>
-                            <td><strong>" . htmlspecialchars($e['institution']) . "</strong></td>
+                            <td><strong>" . htmlspecialchars($e['institution']) . "</strong> - " . htmlspecialchars($e['title']) . "</td>
                             <td style='text-align:right;'><a href='#' onclick=\"confirmDelete('?delete_edu={$e['id']}')\" class='delete-btn'><i class='fa fa-trash'></i> SİL</a></td>
                         </tr>";
                     }
@@ -109,6 +109,8 @@ if (isset($_GET['delete_msg'])) {
                 <form action="process.php" method="POST" class="add-form">
                     <input type="text" name="company" placeholder="Şirket" required>
                     <input type="text" name="position" placeholder="Pozisyon" required>
+                    <input type="text" name="duration" placeholder="Süre (Örn: June 2025 – July 2025)">
+                    <textarea name="description" placeholder="Görev Tanımı / Açıklama" rows="3" style="width: 100%; margin-bottom: 10px; padding: 10px; border: 1px solid #ddd; border-radius: 5px;"></textarea>
                     <button type="submit" name="add_experience" class="save-btn">EKLE</button>
                 </form>
                 <table class="project-table">
@@ -116,7 +118,7 @@ if (isset($_GET['delete_msg'])) {
                     $exp = $pdo->query("SELECT * FROM experience ORDER BY id DESC")->fetchAll();
                     foreach($exp as $ex) {
                         echo "<tr>
-                            <td><strong>" . htmlspecialchars($ex['company']) . "</strong></td>
+                            <td><strong>" . htmlspecialchars($ex['company']) . "</strong> (" . htmlspecialchars($ex['position']) . ")</td>
                             <td style='text-align:right;'><a href='#' onclick=\"confirmDelete('?delete_exp={$ex['id']}')\" class='delete-btn'><i class='fa fa-trash'></i> SİL</a></td>
                         </tr>";
                     }
@@ -127,8 +129,8 @@ if (isset($_GET['delete_msg'])) {
             <section class="admin-section" id="skills">
                 <h2 class="section-title">YETENEKLER</h2>
                 <form action="process.php" method="POST" class="add-form">
-                    <input type="text" name="skill_name" placeholder="Yetenek" required>
-                    <input type="number" name="percentage" placeholder="Yüzde" required>
+                    <input type="text" name="skill_name" placeholder="Yetenek (Örn: C#)" required>
+                    <input type="text" name="category" placeholder="Kategori (Örn: Programming Languages)" required>
                     <button type="submit" name="add_skill" class="save-btn">EKLE</button>
                 </form>
                 <table class="project-table">
@@ -136,7 +138,7 @@ if (isset($_GET['delete_msg'])) {
                     $skills = $pdo->query("SELECT * FROM skills ORDER BY id DESC")->fetchAll();
                     foreach($skills as $s) {
                         echo "<tr>
-                            <td>" . htmlspecialchars($s['skill_name']) . " (%{$s['percentage']})</td>
+                            <td>" . htmlspecialchars($s['skill_name']) . " <span style='color: #888; font-size: 0.9em;'>(" . htmlspecialchars($s['category']) . ")</span></td>
                             <td style='text-align:right;'><a href='#' onclick=\"confirmDelete('?delete_skill={$s['id']}')\" class='delete-btn'><i class='fa fa-trash'></i> SİL</a></td>
                         </tr>";
                     }
@@ -148,7 +150,7 @@ if (isset($_GET['delete_msg'])) {
                 <h2 class="section-title">DİLLER</h2>
                 <form action="process.php" method="POST" class="add-form">
                     <input type="text" name="language_name" placeholder="Dil" required>
-                    <input type="text" name="level" placeholder="Seviye" required>
+                    <input type="text" name="level" placeholder="Seviye (Örn: Professional Proficiency (B2))" required>
                     <button type="submit" name="add_language" class="save-btn">EKLE</button>
                 </form>
                 <table class="project-table">
@@ -204,7 +206,6 @@ if (isset($_GET['delete_msg'])) {
             color: '#333'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Silme işlemini başlat
                 window.location.href = url;
             }
         })

@@ -34,7 +34,7 @@ if ($github_projects && is_array($github_projects)) {
     }
 }
 
-// 3. Son Güncel Halini Veritabanından Çekip JSON Olarak Dön
+// 3. Son Güncel Halini Veritabanından Çek
 try {
     $stmt = $pdo->query("SELECT * FROM projects ORDER BY id DESC");
     $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);

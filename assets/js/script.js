@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * Slider Kaydırma Fonksiyonu
  */
 function moveSlide(direction) {
-    const slider = document.getElementById('db-projects'); // ID güncellendi
+    const slider = document.getElementById('db-projects'); 
     if (!slider) return;
 
     const card = slider.querySelector('.project-card');
@@ -114,9 +114,7 @@ function renderProjects(data, containerId) {
         const card = `
             <div class='project-card' onclick="window.open('${item.project_link}', '_blank')">
                 <h3>${item.title}</h3>
-                <p style="margin-top: 15px; color: #555;">${item.description || 'Project details'}</p>
-                <div class='category' style="margin-top: 20px;">Software</div>
-            </div>`;
+                <p style="margin-top: 15px; color: #555;">${item.description || 'Project details'}</p>            </div>`;
         container.innerHTML += card;
     });
 }
